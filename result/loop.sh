@@ -1,13 +1,10 @@
 #!/bin/bash
-# loop.sh
-# The "Ralph Wiggum" Loop (Smart Exit Version)
 
 MAX_ITERATIONS=4
 ITERATION=0
 PROMPT_FILE="PROMPT.md"
 PLAN_FILE="IMPLEMENTATION_PLAN.md"
 
-# Ensure the prompt exists
 if [ ! -f "$PROMPT_FILE" ]; then
     echo "Error: $PROMPT_FILE not found."
     exit 1
@@ -37,11 +34,10 @@ while true; do
 
     # 3. THE CORE LOOP (Ralph does the work)
     cat "$PROMPT_FILE" | bob \
-        --allowed-tools read_file,write_todos,write_file,run_shell_command \
+        --allowed-tools read_file,write_to_file,run_shell_command \
         --output-format=stream-json
 
     # 4. COMMIT THE WORK
-    # We allow empty commits just in case Ralph didn't change files but we want to log the iteration
     git add .
     git commit -m "Ralph Wiggum Iteration $ITERATION" --allow-empty
 
