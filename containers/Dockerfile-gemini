@@ -1,0 +1,17 @@
+# Start with Python 3.12
+FROM python:3.12-slim
+
+# Install Node.js 20, git, and procps (which provides pgrep)
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    procps \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Gemini CLI globally
+RUN npm install -g @google/gemini-cli@latest
+
+# Set working directory
+WORKDIR /workspace/application

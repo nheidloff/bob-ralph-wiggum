@@ -9,16 +9,15 @@ For a description read the blog post: [Bob meets Ralph](https://heidloff.net/art
 ```
 git clone https://github.com/nheidloff/bob-ralph-wiggum.git
 cd bob-ralph-wiggum
-rm -rf .git
 
-cd start
-python3 -m venv venv
-source venv/bin/activate
-git init
-
-sh loop.sh
+export GEMINI_API_KEY="xxx"
+export GIT_USER_EMAIL="xxx"
+export GIT_USER_USER="xxx"
+sh start-container.sh
 ```
 
-See [screenshots](screenshots) and the [output](screenshots/output.txt).
-
-Note: Execute this in a sandbox environment since the AI agent is launched with '--allowed-tools read_file,write_to_file,run_shell_command'.
+```
+sh ../ralph/iteration.sh
+# or
+sh ../ralph/loop.sh
+```

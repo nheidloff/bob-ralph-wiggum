@@ -2,20 +2,13 @@
 
 MAX_ITERATIONS=4
 ITERATION=0
-PROMPT_FILE="PROMPT.md"
-PLAN_FILE="IMPLEMENTATION_PLAN.md"
-
-if [ ! -f "$PROMPT_FILE" ]; then
-    echo "Error: $PROMPT_FILE not found."
-    exit 1
-fi
+APPLICATION_DIR=$(pwd)
+PLAN_FILE="$APPLICATION_DIR/../ralph/IMPLEMENTATION_PLAN.md"
 
 echo "--- Starting Ralph Wiggum Loop ---"
 
 while true; do
     # 1. SMART EXIT CHECK
-    # We check if the plan file exists. 
-    # If it does, we look for any unchecked boxes "- [ ]".
     if [ -f "$PLAN_FILE" ]; then
         if ! grep -q "\- \[ \]" "$PLAN_FILE"; then
             echo "✅ Success! No unchecked tasks found in $PLAN_FILE."
@@ -30,16 +23,10 @@ while true; do
         break
     fi
 
-    echo "Running Iteration $ITERATION..."
+    echo "--- Running Iteration $ITERATION ---"
 
-    # 3. THE CORE LOOP (Ralph does the work)
-    cat "$PROMPT_FILE" | bob \
-        --allowed-tools read_file,write_to_file,run_shell_command \
-        --output-format=stream-json
-
-    # 4. COMMIT THE WORK
-    git add .
-    git commit -m "Ralph Wiggum Iteration $ITERATION" --allow-empty
+    # 3. CALL THE ITERATION SCRIPT
+    /workspace/ralph/iteration.sh "$ITERATION"
 
     ITERATION=$((ITERATION + 1))
 done
