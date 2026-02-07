@@ -6,19 +6,35 @@ For a description read the blog post: [Bob meets Ralph](https://heidloff.net/art
 
 [IBM Bob](https://www.ibm.com/products/bob) is an AI SDLC (Software Development Lifecycle) partner that helps developers work confidently with real codebases. Bob augments your existing workflows and provides proactive insights. It supports developers as they reason about code and make decisions.
 
+Init Bob:
+
 ```
 git clone https://github.com/nheidloff/bob-ralph-wiggum.git
 cd bob-ralph-wiggum
-rm -rf .git
 
-cd start
-python3 -m venv venv
-source venv/bin/activate
-git init
-
-sh loop.sh
+export BOBSHELL_API_KEY="xxx"
+export GIT_USER_EMAIL="xxx"
+export GIT_USER_NAME="xxx"
+sh init-bob.sh
 ```
 
-See [screenshots](screenshots) and the [output](screenshots/output.txt).
+Start Container: 
 
-Note: Execute this in a sandbox environment since the AI agent is launched with '--allowed-tools read_file,write_to_file,run_shell_command'.
+```
+sh start-container-bob.sh
+```
+
+Ensure that Bob can be started:
+
+```
+bob --auth-method api-key
+bob --auth-method api-key -p "Hi"
+```
+
+Run Bob:
+
+```
+sh ../ralph/iteration.sh
+# or
+sh ../ralph/loop.sh
+```
