@@ -1,14 +1,13 @@
 #!/bin/bash
 
-MAX_ITERATIONS=4
+MAX_ITERATIONS=5
 ITERATION=0
 APPLICATION_DIR=$(pwd)
-PLAN_FILE="$APPLICATION_DIR/../ralph/IMPLEMENTATION_PLAN.md"
+PLAN_FILE="$APPLICATION_DIR/ralph/IMPLEMENTATION_PLAN.md"
 
 echo "--- Starting Ralph Wiggum Loop ---"
 
 while true; do
-    # 1. SMART EXIT CHECK
     if [ -f "$PLAN_FILE" ]; then
         if ! grep -q "\- \[ \]" "$PLAN_FILE"; then
             echo "✅ Success! No unchecked tasks found in $PLAN_FILE."
