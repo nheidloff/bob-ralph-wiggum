@@ -42,9 +42,13 @@ if [ -n "${BOBSHELL_API_KEY+x}" ]; then
         --allowed-tools read_file,write_todos,write_to_file,run_shell_command \
         --output-format=stream-json
 else
-    cat "$PROMPT_FILE" | gemini \
-        --yolo
-        --output-format=stream-json
+    if [ -n "${GEMINI_API_KEY+x}" ]; then
+        cat "$PROMPT_FILE" | gemini \
+            --yolo
+            --output-format=stream-json
+    else
+        cat "$PROMPT_FILE" | ollama run glm-4.7-flash
+    fi
 fi
 
 # 4. COMMIT
