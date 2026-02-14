@@ -20,6 +20,4 @@ sh init-local.sh
 cd application
 
 sh ../ralph/iteration.sh
-# or
-sh ../ralph/loop.sh
 ```

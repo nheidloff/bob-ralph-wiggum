@@ -1,8 +1,7 @@
 #!/bin/bash
 
-export ANTHROPIC_BASE_URL="http://localhost:11434/v1"
-export ANTHROPIC_API_KEY="ollama"
-export CLAUDE_MODEL="glm-4.7-flash:latest"
+export ANTHROPIC_AUTH_TOKEN=ollama
+export ANTHROPIC_BASE_URL=http://localhost:11434
 
 APPLICATION_DIR=$(pwd)
 ITERATION=$1
@@ -51,8 +50,10 @@ else
             --yolo \
             --output-format=stream-json
     else
-        cat "$PROMPT_FILE" | claude --model glm-4.7-flash:latest \
-            --dangerously-skip-permissions
+        cat "$PROMPT_FILE" | claude --model glm-4.7-flash:latest -p \
+            --dangerously-skip-permissions \
+            --output-format=stream-json \
+            --verbose
     fi
 fi
 
