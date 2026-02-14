@@ -3,6 +3,9 @@ rm -rf .git
 chmod 777 ralph/iteration.sh
 chmod 777 ralph/loop.sh
 
+export ANTHROPIC_AUTH_TOKEN=ollama
+export ANTHROPIC_BASE_URL=http://localhost:11434
+
 if [ ! -d application/.git ]; then
     echo "📂 Initializing Git in ./application ..."
     cd application

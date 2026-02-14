@@ -1,5 +1,9 @@
 #!/bin/bash
 
+export ANTHROPIC_BASE_URL="http://localhost:11434/v1"
+export ANTHROPIC_API_KEY="ollama"
+export CLAUDE_MODEL="glm-4.7-flash:latest"
+
 APPLICATION_DIR=$(pwd)
 ITERATION=$1
 PROMPT_FILE="$APPLICATION_DIR/../ralph/PROMPT.md"
@@ -44,10 +48,11 @@ if [ -n "${BOBSHELL_API_KEY+x}" ]; then
 else
     if [ -n "${GEMINI_API_KEY+x}" ]; then
         cat "$PROMPT_FILE" | gemini \
-            --yolo
+            --yolo \
             --output-format=stream-json
     else
-        cat "$PROMPT_FILE" | ollama run glm-4.7-flash
+        cat "$PROMPT_FILE" | claude --model glm-4.7-flash:latest \
+            --dangerously-skip-permissions
     fi
 fi
 
